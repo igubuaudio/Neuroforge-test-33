@@ -1,15 +1,19 @@
+
 cmake_minimum_required(VERSION 3.22)
+
 project(Neuroforge VERSION 0.1.0)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include(FetchContent)
+
 FetchContent_Declare(
     JUCE
     GIT_REPOSITORY https://github.com/juce-framework/JUCE.git
     GIT_TAG 8.0.6
 )
+
 FetchContent_MakeAvailable(JUCE)
 
 juce_add_plugin(Neuroforge
@@ -27,6 +31,9 @@ juce_add_plugin(Neuroforge
     EDITOR_WANTS_KEYBOARD_FOCUS FALSE
     COPY_PLUGIN_AFTER_BUILD FALSE
 )
+
+# Generate the JUCE header required by the source files
+juce_generate_juce_header(Neuroforge)
 
 target_sources(Neuroforge PRIVATE
     Source/PluginProcessor.cpp
