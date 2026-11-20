@@ -122,8 +122,9 @@ void NeuroforgeAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, ju
     for (int ch = getTotalNumInputChannels(); ch < getTotalNumOutputChannels(); ++ch)
         buffer.clear(ch, 0, samples);
 
-    const float lowC = *parameters.getRawParameterValue("lowCut");
-    const float highC = juce::jmax(lowC + 100.0f, *parameters.getRawParameterValue("highCut"));
+    const float lowC = parameters.getRawParameterValue("lowCut")->load();
+    const float highCutValue = parameters.getRawParameterValue("highCut")->load();
+    const float highC = juce::jmax(lowC + 100.0f, highCutValue);
     const float drive = *parameters.getRawParameterValue("drive");
     const float tone = *parameters.getRawParameterValue("tone");
     const float movement = *parameters.getRawParameterValue("movement");
